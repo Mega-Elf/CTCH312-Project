@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int bulletDamage;
+
     private void OnCollisionEnter(Collision objectHit)
     {
         if (objectHit.gameObject.CompareTag("Target"))
@@ -21,6 +23,14 @@ public class Bullet : MonoBehaviour
             print("hit something other than target or wall");
             CreateBulletImpactEffect(objectHit);
             Destroy(gameObject);
+        }
+
+        if (objectHit.gameObject.CompareTag("Zombie"))
+        {
+            print("hit " + objectHit.gameObject.name + " for " + bulletDamage + " damage.");
+            CreateBulletImpactEffect(objectHit);
+            objectHit.gameObject.GetComponent<Zombie>().TakeDamage(bulletDamage);
+            // Destroy(gameObject); // testing if bullet hits multiple times while traveling through same target, if not then can collateral
         }
     }
 
@@ -58,7 +68,7 @@ public class Bullet : MonoBehaviour
 
             hole.transform.SetParent(objectHit.gameObject.transform);
         }
-        else if (objectHit.gameObject.CompareTag("Flesh"))
+        else if (objectHit.gameObject.CompareTag("Zombie"))
         {
             GameObject hole = Instantiate(
                 GlobalReferences.Instance.bulletImpactFleshEffect,

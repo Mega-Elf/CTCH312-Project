@@ -10,6 +10,7 @@ TagManager:
   - Wood
   - Sand
   - Flesh
+  - Zombie
   layers:
   - Default
   - TransparentFX
