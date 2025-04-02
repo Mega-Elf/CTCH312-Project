@@ -16,6 +16,9 @@ public class WeaponManager : MonoBehaviour
     public int totalGlock18Ammo = 0;
     public int totalAK47Ammo = 0;
 
+    // For disabling/re-enabling weapon colliders
+    public Component[] weaponMeshes;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -71,8 +74,12 @@ public class WeaponManager : MonoBehaviour
 
         Weapon weapon = pickedUpWeapon.GetComponent<Weapon>();
 
-        // disables box collider, used for detecting hover, because it blocks bullets sometimes
-        weapon.GetComponent<BoxCollider>().enabled = false;
+        // disables mesh colliders, used for detecting hover, because it blocks bullets sometimes
+        weaponMeshes = weapon.GetComponentsInChildren<MeshCollider>();
+        foreach (MeshCollider mesh in weaponMeshes)
+        {
+            mesh.enabled = false;
+        }
 
         pickedUpWeapon.transform.localPosition = new Vector3(weapon.spawnPosition.x, weapon.spawnPosition.y, weapon.spawnPosition.z);
         pickedUpWeapon.transform.localRotation = Quaternion.Euler(weapon.spawnRotation.x, weapon.spawnRotation.y, weapon.spawnRotation.z);
@@ -101,8 +108,12 @@ public class WeaponManager : MonoBehaviour
         {
             var weaponToDrop = activeWeaponSlot.transform.GetChild(0).gameObject;
 
-            // re-enables box collider, used for detecting hover
-            weaponToDrop.GetComponent<BoxCollider>().enabled = true;
+            // re-enables mesh colliders, used for detecting hover
+            weaponMeshes = weaponToDrop.GetComponentsInChildren<MeshCollider>();
+            foreach (MeshCollider mesh in weaponMeshes)
+            {
+                mesh.enabled = true;
+            }
 
             weaponToDrop.GetComponent<Weapon>().isActiveWeapon = false;
             weaponToDrop.GetComponent<Weapon>().animator.enabled = false; // turn off animations when dropped

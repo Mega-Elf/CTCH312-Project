@@ -81,7 +81,7 @@ public class Weapon : MonoBehaviour
         {
             foreach (Transform child in transform)
             {
-                child.gameObject.layer = LayerMask.NameToLayer("WeaponRender"); // display onto of everything else
+                child.gameObject.layer = LayerMask.NameToLayer("WeaponRender"); // display on top of everything else
             }
 
             if (Input.GetMouseButtonDown(1))

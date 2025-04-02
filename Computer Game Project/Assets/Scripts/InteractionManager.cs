@@ -28,15 +28,18 @@ public class InteractionManager : MonoBehaviour
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
 
-            // Weapon
-            if (objectHitByRaycast.GetComponent<Weapon>())
+            // Weapon part hit
+            if (objectHitByRaycast.GetComponentInParent<Weapon>())
             {
-                hoveredWeapon = objectHitByRaycast.gameObject.GetComponent<Weapon>();
+                // Get the whole weapon
+                GameObject parentOfObjectHit = hit.transform.parent.gameObject;
+
+                hoveredWeapon = parentOfObjectHit.gameObject.GetComponent<Weapon>();
                 hoveredWeapon.GetComponent<Outline>().enabled = true;
 
                 if (Input.GetKeyDown(KeyCode.F))
                 {
-                    WeaponManager.Instance.PickUpWeapon(objectHitByRaycast.gameObject); 
+                    WeaponManager.Instance.PickUpWeapon(parentOfObjectHit.gameObject);
                 }
             }
             else
@@ -47,10 +50,13 @@ public class InteractionManager : MonoBehaviour
                 }
             }
 
-            // Ammo Crate
-            if (objectHitByRaycast.GetComponent<AmmoCrate>())
+            // Ammo Crate part hit
+            if (objectHitByRaycast.GetComponentInParent<AmmoCrate>())
             {
-                hoveredAmmoCrate = objectHitByRaycast.gameObject.GetComponent<AmmoCrate>();
+                // Get the whole ammo crate
+                GameObject parentOfObjectHit = hit.transform.parent.gameObject;
+
+                hoveredAmmoCrate = parentOfObjectHit.gameObject.GetComponent<AmmoCrate>();
                 hoveredAmmoCrate.GetComponent<Outline>().enabled = true;
 
                 if (Input.GetKeyDown(KeyCode.F))

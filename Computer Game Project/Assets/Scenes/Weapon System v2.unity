@@ -5891,10 +5891,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: AK47
       objectReference: {fileID: 0}
-    - target: {fileID: 1039599054776812212, guid: 2854e9fcc097eda43a972106581a2dd9, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 4674061289449210647, guid: 2854e9fcc097eda43a972106581a2dd9, type: 3}
       propertyPath: m_LocalPosition.x
       value: -2.5
@@ -5934,10 +5930,6 @@ PrefabInstance:
     - target: {fileID: 4674061289449210647, guid: 2854e9fcc097eda43a972106581a2dd9, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 90
-      objectReference: {fileID: 0}
-    - target: {fileID: 7287067256188992381, guid: 2854e9fcc097eda43a972106581a2dd9, type: 3}
-      propertyPath: weaponDamage
-      value: 15
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -23418,14 +23410,6 @@ PrefabInstance:
     - target: {fileID: 3882877017333000251, guid: 7a165be256a61754cba0d3a4281aa52a, type: 3}
       propertyPath: m_Name
       value: Glock18
-      objectReference: {fileID: 0}
-    - target: {fileID: 3882877017333000251, guid: 7a165be256a61754cba0d3a4281aa52a, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 6016322992214181638, guid: 7a165be256a61754cba0d3a4281aa52a, type: 3}
-      propertyPath: weaponDamage
-      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
