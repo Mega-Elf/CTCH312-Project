@@ -29,7 +29,7 @@ public class Bullet : MonoBehaviour
         {
             print("hit " + objectHit.gameObject.name + " for " + bulletDamage + " damage.");
             CreateBulletImpactEffect(objectHit);
-            objectHit.gameObject.GetComponent<Zombie>().TakeDamage(bulletDamage);
+            objectHit.gameObject.GetComponentInParent<Zombie>().TakeDamage(bulletDamage);
             // Destroy(gameObject); // testing if bullet hits multiple times while traveling through same target, if not then can collateral
         }
     }

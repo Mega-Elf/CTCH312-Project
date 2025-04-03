@@ -8,14 +8,15 @@ public class Zombie : MonoBehaviour
 
     private NavMeshAgent navAgent;
 
-    private CapsuleCollider hitBox;
+    // For holding all zombie part hitBoxes
+    private BoxCollider[] zombieHitBoxes;
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
-        hitBox = GetComponent<CapsuleCollider>();
+        // zombieHitBoxes = GetComponentsInChildren<BoxCollider>(); // get all hitboxes for the zombie
     }
 
     // Update is called once per frame
@@ -35,9 +36,13 @@ public class Zombie : MonoBehaviour
     {
         health = health - damageTaken;
 
-        if (health <= 0)
+        if (health <= 0) // zombie dies
         {
-            hitBox.enabled = false; // turn off hitbox when zombie dies
+            zombieHitBoxes = GetComponentsInChildren<BoxCollider>(); // get all hitboxes for the zombie
+            foreach (BoxCollider hitBox in zombieHitBoxes)
+            {
+                hitBox.enabled = false; // turn off all hitboxes when zombie dies
+            }
 
             int randomNumber = Random.Range(0, 2); // random number 0 or 1, which death effect plays
             if (randomNumber == 0)
@@ -49,7 +54,7 @@ public class Zombie : MonoBehaviour
                 animator.SetTrigger("DEATH_2");
             }
 
-            // Destroy(gameObject);
+            // Destroy(gameObject); // remove zombie from scene
         }
         else
         {

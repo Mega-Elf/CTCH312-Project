@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 4154056297938993324}
   - component: {fileID: 8273448580381381303}
   - component: {fileID: 4456583963177448759}
-  - component: {fileID: 2285774919145975475}
+  - component: {fileID: 5777237336101586306}
   m_Layer: 0
   m_Name: Body
   m_TagString: Wood
@@ -87,8 +87,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2285774919145975475
-MeshCollider:
+--- !u!65 &5777237336101586306
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -105,10 +105,9 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300000, guid: 45fb3b613218da844b047d1f9349e0d6, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1282.2863, y: 719.42444, z: 406.82083}
+  m_Center: {x: 0, y: -8.673618e-19, z: -0.000030517585}
 --- !u!1 &1643179865839583167
 GameObject:
   m_ObjectHideFlags: 0
@@ -187,7 +186,7 @@ GameObject:
   - component: {fileID: 3194906767907128119}
   - component: {fileID: 7888469353347977365}
   - component: {fileID: 7144047694620551151}
-  - component: {fileID: 2836890022795312441}
+  - component: {fileID: 1922382007049230961}
   m_Layer: 0
   m_Name: Lid
   m_TagString: Wood
@@ -263,8 +262,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2836890022795312441
-MeshCollider:
+--- !u!65 &1922382007049230961
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -281,7 +280,6 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 4300002, guid: 45fb3b613218da844b047d1f9349e0d6, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 1173.7632, y: 758.7626, z: 263.37527}
+  m_Center: {x: 0.00012207031, y: -382.0854, z: -37.8747}
