@@ -7,6 +7,10 @@ public class InteractionManager : MonoBehaviour
     public Weapon hoveredWeapon = null;
     public AmmoCrate hoveredAmmoCrate = null;
 
+    public Transform player;
+    public float distanceFromObject;
+    public float pickUpRange = 2.5f;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -28,48 +32,62 @@ public class InteractionManager : MonoBehaviour
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
 
-            // Weapon part hit
-            if (objectHitByRaycast.GetComponentInParent<Weapon>())
+            // Get the whole object, weapon or ammo crate etc
+            GameObject parentOfObjectHit = hit.transform.parent.gameObject;
+
+            distanceFromObject = Vector3.Distance(player.position, parentOfObjectHit.transform.position);
+
+            if (distanceFromObject <= pickUpRange) // within range of object
             {
-                // Get the whole weapon
-                GameObject parentOfObjectHit = hit.transform.parent.gameObject;
-
-                hoveredWeapon = parentOfObjectHit.gameObject.GetComponent<Weapon>();
-                hoveredWeapon.GetComponent<Outline>().enabled = true;
-
-                if (Input.GetKeyDown(KeyCode.F))
+                // Weapon part hit
+                if (parentOfObjectHit.GetComponent<Weapon>())
                 {
-                    WeaponManager.Instance.PickUpWeapon(parentOfObjectHit.gameObject);
+                    hoveredWeapon = parentOfObjectHit.gameObject.GetComponent<Weapon>();
+                    hoveredWeapon.GetComponent<Outline>().enabled = true;
+
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        WeaponManager.Instance.PickUpWeapon(parentOfObjectHit.gameObject);
+                    }
+                }
+                else
+                {
+                    if (hoveredWeapon)
+                    {
+                        hoveredWeapon.GetComponent<Outline>().enabled = false;
+                    }
+                }
+
+                // Ammo Crate part hit
+                if (parentOfObjectHit.GetComponent<AmmoCrate>())
+                {
+                    hoveredAmmoCrate = parentOfObjectHit.gameObject.GetComponent<AmmoCrate>();
+                    hoveredAmmoCrate.GetComponent<Outline>().enabled = true;
+
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        WeaponManager.Instance.PickUpAmmo(hoveredAmmoCrate);
+                        // Reduce player score? spend points for ammo
+                    }
+                }
+                else
+                {
+                    if (hoveredAmmoCrate)
+                    {
+                        hoveredAmmoCrate.GetComponent<Outline>().enabled = false;
+                    }
                 }
             }
-            else
+            else // out of range of object
             {
-                if (hoveredWeapon)
+                if (hoveredWeapon) // a weapon was hovered
                 {
-                    hoveredWeapon.GetComponent<Outline>().enabled = false;
+                    hoveredWeapon.GetComponent<Outline>().enabled = false; // disable its outline
                 }
-            }
 
-            // Ammo Crate part hit
-            if (objectHitByRaycast.GetComponentInParent<AmmoCrate>())
-            {
-                // Get the whole ammo crate
-                GameObject parentOfObjectHit = hit.transform.parent.gameObject;
-
-                hoveredAmmoCrate = parentOfObjectHit.gameObject.GetComponent<AmmoCrate>();
-                hoveredAmmoCrate.GetComponent<Outline>().enabled = true;
-
-                if (Input.GetKeyDown(KeyCode.F))
+                if (hoveredAmmoCrate) // a ammo crate was hovered
                 {
-                    WeaponManager.Instance.PickUpAmmo(hoveredAmmoCrate);
-                    // Reduce player score? spend points for ammo
-                }
-            }
-            else
-            {
-                if (hoveredAmmoCrate)
-                {
-                    hoveredAmmoCrate.GetComponent<Outline>().enabled = false;
+                    hoveredAmmoCrate.GetComponent<Outline>().enabled = false; // disable its outline
                 }
             }
         }

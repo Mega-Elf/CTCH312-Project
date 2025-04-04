@@ -1854,6 +1854,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 50
+  player: {fileID: 0}
+  minZombieWalkSpeed: 0
+  minZombieRunSpeed: 4.5
+  zombieAttackRange: 2
+  distanceFromPlayer: 0
 --- !u!114 &1056816572671914505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1876,7 +1881,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 0.3
-  m_Speed: 1.5
+  m_Speed: 2
   m_Acceleration: 20
   avoidancePriority: 50
   m_AngularSpeed: 1000

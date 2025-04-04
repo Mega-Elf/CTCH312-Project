@@ -28,6 +28,11 @@ public class UIManager : MonoBehaviour
 
     public GameObject crosshair;
 
+    public TextMeshProUGUI roundCountUI;
+    public int roundCount = 1;
+    public TextMeshProUGUI killCountUI;
+    public int killCount = 0;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -68,6 +73,66 @@ public class UIManager : MonoBehaviour
             ammoTypeUI.sprite = emptySlot;
             activeWeaponUI.sprite = emptySlot;
             inactiveWeaponUI.sprite = emptySlot;
+        }
+
+        switch (killCount) // increase round based on kills
+        {
+            case 2: // round 1 complete
+                if (roundCount == 1)
+                {
+                    roundCount++; // go to round 2
+                }
+                break;
+            case 4: // round 2 complete
+                if (roundCount == 2)
+                {
+                    roundCount++; // go to round 3
+                }
+                break;
+            case 6: // round 3 complete
+                if (roundCount == 3)
+                {
+                    roundCount++; // go to round 4
+                }
+                break;
+            case 45: // round 4 complete
+                if (roundCount == 4)
+                {
+                    roundCount++; // go to round 5
+                }
+                break;
+            case 69: // round 5 complete
+                if (roundCount == 5)
+                {
+                    roundCount++; // go to round 6
+                }
+                break;
+            case 96: // round 6 complete
+                if (roundCount == 6)
+                {
+                    roundCount++; // go to round 7
+                }
+                break;
+            case 124: // round 7 complete
+                if (roundCount == 7)
+                {
+                    roundCount++; // go to round 8
+                }
+                break;
+            default:
+                break;
+        }
+
+        // Update kill count
+        if (killCountUI.text != $"{killCount}")
+        {
+            killCountUI.text = $"{killCount}";
+        }
+
+        // Update round count
+        if (roundCountUI.text != $"{roundCount}")
+        {
+            roundCountUI.text = $"{roundCount}";
         }
     }
 
