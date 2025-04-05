@@ -11,6 +11,7 @@ TagManager:
   - Sand
   - Flesh
   - Zombie
+  - ZombieHand
   layers:
   - Default
   - TransparentFX

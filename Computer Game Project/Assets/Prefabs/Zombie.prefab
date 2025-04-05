@@ -249,9 +249,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3879773954554410124}
+  - component: {fileID: 3482405447888481699}
   m_Layer: 0
   m_Name: Base HumanRArmPalm
-  m_TagString: Untagged
+  m_TagString: ZombieHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -276,6 +277,27 @@ Transform:
   - {fileID: 8360929103957792978}
   m_Father: {fileID: 7993841430203622037}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &3482405447888481699
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615612000433393300}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.20680742, y: 0.09600795, z: 0.15531546}
+  m_Center: {x: -0.114146076, y: -0.017783951, z: -0.012375355}
 --- !u!1 &733013228637713638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1853,12 +1875,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783631f6ca72fe5408d9e11e4b71e847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 50
+  zombieHealth: 50
   player: {fileID: 0}
-  minZombieWalkSpeed: 0
-  minZombieRunSpeed: 4.5
-  zombieAttackRange: 2
-  distanceFromPlayer: 0
 --- !u!114 &1056816572671914505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1887,7 +1905,7 @@ NavMeshAgent:
   m_AngularSpeed: 1000
   m_StoppingDistance: 0
   m_AutoTraverseOffMeshLink: 1
-  m_AutoBraking: 1
+  m_AutoBraking: 0
   m_AutoRepath: 1
   m_Height: 1.8
   m_BaseOffset: 0
@@ -1934,9 +1952,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 773462276605068700}
+  - component: {fileID: 6775674185613285523}
   m_Layer: 0
   m_Name: Base HumanLArmPalm
-  m_TagString: Zombie
+  m_TagString: ZombieHand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1961,6 +1980,27 @@ Transform:
   - {fileID: 8938918255148606865}
   m_Father: {fileID: 6241091506798978792}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &6775674185613285523
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483482900803736424}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.20680736, y: 0.09600795, z: 0.15352803}
+  m_Center: {x: -0.114146024, y: -0.017783891, z: 0.013344903}
 --- !u!1 &5510545869116073736
 GameObject:
   m_ObjectHideFlags: 0

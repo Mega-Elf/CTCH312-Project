@@ -31,17 +31,19 @@ public class InteractionManager : MonoBehaviour
         if (Physics.Raycast(ray, out hit))
         {
             GameObject objectHitByRaycast = hit.transform.gameObject;
-
-            // Get the whole object, weapon or ammo crate etc
-            GameObject parentOfObjectHit = hit.transform.parent.gameObject;
-
-            distanceFromObject = Vector3.Distance(player.position, parentOfObjectHit.transform.position);
+            
+            // Get distance from root (from whole object for objects placeds in main hierarchy, which is where interactables need to be placed)
+            // doesn't give errors for any other objects.
+            distanceFromObject = Vector3.Distance(player.position, objectHitByRaycast.transform.root.position);
 
             if (distanceFromObject <= pickUpRange) // within range of object
             {
                 // Weapon part hit
-                if (parentOfObjectHit.GetComponent<Weapon>())
+                if (objectHitByRaycast.GetComponentInParent<Weapon>())
                 {
+                    // Get the whole weapon object
+                    GameObject parentOfObjectHit = hit.transform.parent.gameObject;
+
                     hoveredWeapon = parentOfObjectHit.gameObject.GetComponent<Weapon>();
                     hoveredWeapon.GetComponent<Outline>().enabled = true;
 
@@ -59,8 +61,11 @@ public class InteractionManager : MonoBehaviour
                 }
 
                 // Ammo Crate part hit
-                if (parentOfObjectHit.GetComponent<AmmoCrate>())
+                if (objectHitByRaycast.GetComponentInParent<AmmoCrate>())
                 {
+                    // Get the whole ammo crate object
+                    GameObject parentOfObjectHit = hit.transform.parent.gameObject;
+
                     hoveredAmmoCrate = parentOfObjectHit.gameObject.GetComponent<AmmoCrate>();
                     hoveredAmmoCrate.GetComponent<Outline>().enabled = true;
 
