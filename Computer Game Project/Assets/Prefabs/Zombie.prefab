@@ -250,6 +250,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3879773954554410124}
   - component: {fileID: 3482405447888481699}
+  - component: {fileID: 7011644023432185577}
   m_Layer: 0
   m_Name: Base HumanRArmPalm
   m_TagString: ZombieHand
@@ -298,6 +299,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20680742, y: 0.09600795, z: 0.15531546}
   m_Center: {x: -0.114146076, y: -0.017783951, z: -0.012375355}
+--- !u!114 &7011644023432185577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 615612000433393300}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec0c9f2a68760949bc8c9b1c222782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &733013228637713638
 GameObject:
   m_ObjectHideFlags: 0
@@ -1877,6 +1891,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   zombieHealth: 50
   player: {fileID: 0}
+  zombieHandLeft: {fileID: 7172711417406176770}
+  zombieHandRight: {fileID: 7011644023432185577}
+  zombieDamage: 10
 --- !u!114 &1056816572671914505
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1953,6 +1970,7 @@ GameObject:
   m_Component:
   - component: {fileID: 773462276605068700}
   - component: {fileID: 6775674185613285523}
+  - component: {fileID: 7172711417406176770}
   m_Layer: 0
   m_Name: Base HumanLArmPalm
   m_TagString: ZombieHand
@@ -2001,6 +2019,19 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.20680736, y: 0.09600795, z: 0.15352803}
   m_Center: {x: -0.114146024, y: -0.017783891, z: 0.013344903}
+--- !u!114 &7172711417406176770
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5483482900803736424}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec0c9f2a68760949bc8c9b1c222782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &5510545869116073736
 GameObject:
   m_ObjectHideFlags: 0

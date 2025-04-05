@@ -16,12 +16,20 @@ public class Zombie : MonoBehaviour
     // For holding all zombie part hitBoxes
     private BoxCollider[] zombieHitBoxes;
 
+    // For dealing damage to player
+    public ZombieHand zombieHandLeft;
+    public ZombieHand zombieHandRight;
+    public int zombieDamage;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
         zombieHitBoxes = GetComponentsInChildren<BoxCollider>(); // get all hitboxes for the zombie at the start
+
+        zombieHandLeft.damage = zombieDamage; // set damage of zombie
+        zombieHandRight.damage = zombieDamage; // set damage of zombie
     }
 
     public void TakeDamage(int damageTaken)
