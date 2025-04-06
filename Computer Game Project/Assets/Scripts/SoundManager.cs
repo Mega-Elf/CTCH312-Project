@@ -19,6 +19,12 @@ public class SoundManager : MonoBehaviour
     public AudioClip AK47Reload;
     public AudioSource dryFireSoundAK47;
 
+    // Player sounds
+    public AudioClip playerDamaged;
+    public AudioClip playerDeath;
+    public AudioClip gameOverMusic;
+    public AudioSource PlayerChannel;
+
     [Header("Sound Method 2")]
     [SerializeField] private AudioSource soundFXObject;
 

@@ -33,6 +33,11 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI killCountUI;
     public int killCount = 0;
 
+    public Player player;
+    public TextMeshProUGUI playerHealthUI;
+
+    public GameObject gameOverUI;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -43,6 +48,11 @@ public class UIManager : MonoBehaviour
         {
             Instance = this;
         }
+    }
+
+    private void Start()
+    {
+        playerHealthUI.text = $"{player.playerHealth}";
     }
 
     private void Update()
