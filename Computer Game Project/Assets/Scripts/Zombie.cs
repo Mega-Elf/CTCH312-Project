@@ -21,6 +21,13 @@ public class Zombie : MonoBehaviour
     public ZombieHand zombieHandRight;
     public int zombieDamage;
 
+    [Header("Sound Effects")]
+    [SerializeField] private AudioSource zombieChannel; // separate audio channels for each zombie
+    [SerializeField] public AudioClip[] damageSoundClips;
+    [SerializeField] public AudioClip[] deathSoundClips;
+    [SerializeField] public AudioClip[] attackSoundClips;
+    [SerializeField] public AudioClip[] zombieSoundClips; // regular zombie sounds, play when walking or running
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
@@ -57,11 +64,27 @@ public class Zombie : MonoBehaviour
                 animator.SetTrigger("DEATH_2");
             }
 
-            StartCoroutine(DestroyZombie(gameObject, 3f)); // remove zombie from scene in 3 secs
+            zombieChannel.Stop(); // stops current audio
+
+            // assign a random death sound to play
+            int rand = Random.Range(0, deathSoundClips.Length);
+            zombieChannel.PlayOneShot(deathSoundClips[rand]); // sound overlaps, but it should be fine as it only plays once
+
+            StartCoroutine(DestroyZombie(gameObject, 3f)); // remove zombie from scene in 3 seconds
         }
         else // zombie doesn't die
         {
             animator.SetTrigger("DAMAGE");
+
+            zombieChannel.Stop(); // stops current audio
+
+            // assign a random damage sound to play
+            int rand = Random.Range(0, damageSoundClips.Length);
+            zombieChannel.clip = damageSoundClips[rand];
+            zombieChannel.Play(); // sound doesn't overlap
+
+            // zombieChannel.PlayOneShot(damageSoundClips[rand]); // sound overlaps
+            // SoundManager.Instance.PlayRandomSoundFXClip(damageSoundClips, transform, 0.25f); // Sound Method 2, doesn't overlap
         }
     }
 

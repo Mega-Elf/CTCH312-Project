@@ -9,6 +9,9 @@ public class ZombieAttackingState : StateMachineBehaviour
     public float moveSpeedWhenAttacking = 2f; // reduce speed when attacking, to not push the player so much
     public float zombieAttackRange = 1.75f;
 
+    private AudioSource zombieChannel; // separate audio channels for each zombie
+    private Zombie zombie;
+
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
@@ -16,11 +19,25 @@ public class ZombieAttackingState : StateMachineBehaviour
         navAgent = animator.GetComponent<NavMeshAgent>();
 
         navAgent.speed = moveSpeedWhenAttacking;
+
+        zombie = animator.GetComponent<Zombie>();
+        zombieChannel = animator.GetComponent<AudioSource>();
     }
 
     // OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
+        if (zombieChannel.isPlaying == false)
+        {
+            // assign a random zombie sound to play
+            int rand = Random.Range(0, zombie.attackSoundClips.Length);
+            zombieChannel.clip = zombie.attackSoundClips[rand];
+
+            // give a random delay, from 0.25 to 1.25 seconds, to the sound that is played
+            float randFloat = Random.Range(0.25f, 1.25f);
+            zombieChannel.PlayDelayed(randFloat);
+        }
+
         navAgent.destination = player.position; // zombie moves towards player, keeps zombie looking at player
 
         float distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
@@ -30,5 +47,11 @@ public class ZombieAttackingState : StateMachineBehaviour
         {
             animator.SetBool("isAttacking", false);
         }
+    }
+
+    // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
+    override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
+    {
+        zombieChannel.Stop(); // stop current sound, so it can play attack sound
     }
 }

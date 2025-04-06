@@ -441,7 +441,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 78c81bc213f45de4da04d10a7e9d3c2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  runSpeed: 7.5
+  runSpeed: 4
   zombieAttackRange: 2
 --- !u!1101 &4648178543864867953
 AnimatorStateTransition:
