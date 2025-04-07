@@ -68,7 +68,7 @@ public class ZombieRunningState : StateMachineBehaviour
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
         navAgent.destination = animator.transform.position; // stop moving
-        zombieChannel.Stop(); // stop current sound, so it can play attack sound
+        // zombieChannel.Stop(); // stop current sound, so it can play next sound
         animator.speed = startingAnimSpeed; // set animator speed back to what is was previously
     }
 }
