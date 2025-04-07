@@ -6,11 +6,13 @@ public class ZombieWalkingState : StateMachineBehaviour
     Transform player;
     NavMeshAgent navAgent;
 
-    public float walkSpeed = 2f;
+    public float maxWalkSpeed = 4.5f;
     public float zombieAttackRange = 1.75f;
 
     private AudioSource zombieChannel; // separate audio channels for each zombie
     private Zombie zombie;
+
+    public float startingAnimSpeed;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,7 +20,15 @@ public class ZombieWalkingState : StateMachineBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navAgent = animator.GetComponent<NavMeshAgent>();
 
-        navAgent.speed = walkSpeed;
+        startingAnimSpeed = animator.speed; // store current animator speed
+
+        if (UIManager.Instance.currentRound < 6) // rounds 1 to 5
+        {
+            // r1 = 2.5, r2 = 3, r3 = 3.5, etc.
+            navAgent.speed = 2f + 0.5f * UIManager.Instance.currentRound;
+            // play walking animation faster to match move speed increase
+            animator.speed = 2f + 0.2f * (UIManager.Instance.currentRound - 1);
+        }
 
         zombie = animator.GetComponent<Zombie>();
         zombieChannel = animator.GetComponent<AudioSource>();
@@ -41,7 +51,7 @@ public class ZombieWalkingState : StateMachineBehaviour
         navAgent.destination = player.position; // zombie moves towards player
 
         // Transition to Running State
-        if (UIManager.Instance.roundCount >= 3) // test-- if round 3
+        if (UIManager.Instance.currentRound >= 6) // if round 6+, start running
         {
             animator.SetBool("isRunning", true);
             animator.SetBool("isWalking", false);
@@ -61,5 +71,6 @@ public class ZombieWalkingState : StateMachineBehaviour
     {
         navAgent.destination = animator.transform.position; // stop moving
         zombieChannel.Stop(); // stop current sound, so it can play attack sound
+        animator.speed = startingAnimSpeed; // set animator speed back to what is was previously
     }
 }

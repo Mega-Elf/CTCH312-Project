@@ -8,6 +8,7 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 public class Zombie : MonoBehaviour
 {
     [SerializeField] private int zombieHealth = 50;
+    public bool isDead;
     private Animator animator;
 
     private NavMeshAgent navAgent;
@@ -45,6 +46,7 @@ public class Zombie : MonoBehaviour
 
         if (zombieHealth <= 0) // zombie dies
         {
+            isDead = true;
             UIManager.Instance.killCount++; // increase kill count
 
             navAgent.destination = navAgent.transform.position; // stop zombie from moving

@@ -6,11 +6,13 @@ public class ZombieRunningState : StateMachineBehaviour
     Transform player;
     NavMeshAgent navAgent;
 
-    public float runSpeed = 4f;
+    public float maxRunSpeed = 6.5f;
     public float zombieAttackRange = 1.75f;
 
     private AudioSource zombieChannel; // separate audio channels for each zombie
     private Zombie zombie;
+
+    public float startingAnimSpeed;
 
     // OnStateEnter is called when a transition starts and the state machine starts to evaluate this state
     override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
@@ -18,7 +20,20 @@ public class ZombieRunningState : StateMachineBehaviour
         player = GameObject.FindGameObjectWithTag("Player").transform;
         navAgent = animator.GetComponent<NavMeshAgent>();
 
-        navAgent.speed = runSpeed;
+        startingAnimSpeed = animator.speed; // store current animator speed
+
+        if (UIManager.Instance.currentRound < 13) // rounds 6 to 12
+        {
+            // r6 = 5, r7 = 5.25, r8 = 5.5, r9 = 5.75, r10 = 6, r11 = 6.25, r12 = 6.5
+            navAgent.speed = 5f + 0.25f * (UIManager.Instance.currentRound - 6);
+            // play running animation faster to match move speed increase
+            animator.speed = 1f + 0.1f * (UIManager.Instance.currentRound - 6);
+        }
+        else // rounds 13+
+        {
+            navAgent.speed = maxRunSpeed; // 6.5
+            animator.speed = 1.6f;
+        }
 
         zombie = animator.GetComponent<Zombie>();
         zombieChannel = animator.GetComponent<AudioSource>();
@@ -33,8 +48,8 @@ public class ZombieRunningState : StateMachineBehaviour
             int rand = Random.Range(0, zombie.zombieSoundClips.Length);
             zombieChannel.clip = zombie.zombieSoundClips[rand];
 
-            // give a random delay, from 1 to 3 seconds, to the sound that is played
-            float randFloat = Random.Range(1, 3);
+            // give a random delay, from 1 to 4 seconds, to the sound that is played
+            float randFloat = Random.Range(1, 4);
             zombieChannel.PlayDelayed(randFloat);
         }
 
@@ -54,5 +69,6 @@ public class ZombieRunningState : StateMachineBehaviour
     {
         navAgent.destination = animator.transform.position; // stop moving
         zombieChannel.Stop(); // stop current sound, so it can play attack sound
+        animator.speed = startingAnimSpeed; // set animator speed back to what is was previously
     }
 }

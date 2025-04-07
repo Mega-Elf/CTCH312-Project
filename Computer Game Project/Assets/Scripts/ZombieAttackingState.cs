@@ -7,7 +7,7 @@ public class ZombieAttackingState : StateMachineBehaviour
     NavMeshAgent navAgent;
 
     public float moveSpeedWhenAttacking = 2f; // reduce speed when attacking, to not push the player so much
-    public float zombieAttackRange = 1.75f;
+    public float zombieAttackExitRange = 2f; // higher range to exit than enter to fix animation issue
 
     private AudioSource zombieChannel; // separate audio channels for each zombie
     private Zombie zombie;
@@ -43,7 +43,7 @@ public class ZombieAttackingState : StateMachineBehaviour
         float distanceFromPlayer = Vector3.Distance(player.position, animator.transform.position);
 
         // Transition to Attacking State
-        if (distanceFromPlayer > zombieAttackRange) // test-- if zombie in range to attack
+        if (distanceFromPlayer > zombieAttackExitRange) // test-- if zombie in range to attack
         {
             animator.SetBool("isAttacking", false);
         }
