@@ -12,7 +12,7 @@ public class Zombie : MonoBehaviour
     private Animator animator;
 
     private NavMeshAgent navAgent;
-    public Transform player;
+    public GameObject player;
 
     // For holding all zombie part hitBoxes
     private BoxCollider[] zombieHitBoxes;
@@ -34,10 +34,19 @@ public class Zombie : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         navAgent = GetComponent<NavMeshAgent>();
+        player = GameObject.FindGameObjectWithTag("Player");
         zombieHitBoxes = GetComponentsInChildren<BoxCollider>(); // get all hitboxes for the zombie at the start
 
         zombieHandLeft.damage = zombieDamage; // set damage of zombie
         zombieHandRight.damage = zombieDamage; // set damage of zombie
+    }
+
+    public void Update()
+    {
+        if (player.GetComponent<Player>().isDead == true) // if player is dead
+        {
+            zombieChannel.volume = 0f; // mute zombie audio source
+        }
     }
 
     public void TakeDamage(int damageTaken)

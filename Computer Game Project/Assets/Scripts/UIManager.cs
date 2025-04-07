@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     public Image tacticalUI;
     public TextMeshProUGUI tacticalCountUI;
 
-    [Header("Other")]
+    [Header("Player HUD")]
     public Sprite emptySlot;
 
     public GameObject crosshair;
@@ -36,7 +36,11 @@ public class UIManager : MonoBehaviour
     public Player player;
     public TextMeshProUGUI playerHealthUI;
 
-    public GameObject gameOverUI;
+    [Header("Other")]
+    public GameObject crosshairCanvas;
+    public GameObject playerHUDCanvas;
+    public GameObject gameEndScreenCanvas;
+    public TextMeshProUGUI roundsSurvivedUI;
 
     private void Awake()
     {
@@ -95,6 +99,12 @@ public class UIManager : MonoBehaviour
         if (roundCountUI.text != $"{currentRound}")
         {
             roundCountUI.text = $"{currentRound}";
+        }
+
+        // Update you survived x rounds
+        if (roundsSurvivedUI.text != $"You Survived {currentRound - 1} Rounds")
+        {
+            roundsSurvivedUI.text = $"You Survived {currentRound - 1} Rounds";
         }
     }
 

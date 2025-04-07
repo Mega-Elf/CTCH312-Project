@@ -1,5 +1,12 @@
 fileFormatVersion: 2
 guid: df0af03ca4de49d48912d857104cdfab
+AssetOrigin:
+  serializedVersion: 1
+  productId: 285693
+  packageName: Low Poly Pistol Weapon Pack 1
+  packageVersion: 1.1
+  assetPath: Assets/Low Poly Pistol Weapon Pack 1/Models/Bullets/Bullet_Pistol_A.fbx
+  uploadId: 729399
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -30,7 +37,7 @@ ModelImporter:
     extraExposedTransformPaths: []
     extraUserProperties: []
     clipAnimations: []
-    isReadable: 0
+    isReadable: 1
   meshes:
     lODScreenPercentages: []
     globalScale: 1
@@ -105,10 +112,3 @@ ModelImporter:
   userData: 
   assetBundleName: 
   assetBundleVariant: 
-AssetOrigin:
-  serializedVersion: 1
-  productId: 285693
-  packageName: Low Poly Pistol Weapon Pack 1
-  packageVersion: 1.1
-  assetPath: Assets/Low Poly Pistol Weapon Pack 1/Models/Bullets/Bullet_Pistol_A.fbx
-  uploadId: 729399

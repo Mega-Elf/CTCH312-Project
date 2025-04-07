@@ -45,6 +45,8 @@ public class SpawnManager : MonoBehaviour
         currentZombiesPerRound = initialZombiesPerRound;
 
         UIManager.Instance.currentRound++; // increase round from 0 to 1, start game
+        GlobalReferences.Instance.roundNumber = UIManager.Instance.currentRound; // set highest round survived in global ref
+
         StartNextRound();
     }
 
@@ -92,6 +94,7 @@ public class SpawnManager : MonoBehaviour
         inbetweenRounds = true;
 
         UIManager.Instance.currentRound++; // increase round before the delay
+        GlobalReferences.Instance.roundNumber = UIManager.Instance.currentRound; // set highest round survived in global ref
 
         yield return new WaitForSeconds(roundDelay);
 

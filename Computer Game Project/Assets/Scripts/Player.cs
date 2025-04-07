@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 using UnityStandardAssets.Characters.FirstPerson;
 
@@ -17,15 +18,15 @@ public class Player : MonoBehaviour
 
         UIManager.Instance.playerHealthUI.text = $"{playerHealth}";
 
-        if (playerHealth <= 0) // player dies
+        if (playerHealth <= 0 && !isDead) // player takes lethal damage, and wasn't already dead
         {
+            isDead = true;
             print("Player has died");
             PlayerDeath();
-            isDead = true;
             SoundManager.Instance.PlayerChannel.PlayOneShot(SoundManager.Instance.playerDeath);
 
             SoundManager.Instance.PlayerChannel.clip = SoundManager.Instance.gameOverMusic;
-            SoundManager.Instance.PlayerChannel.PlayDelayed(2f);
+            SoundManager.Instance.PlayerChannel.Play();
         }
         else // player doesn't die
         {
@@ -41,22 +42,40 @@ public class Player : MonoBehaviour
 
     private void PlayerDeath()
     {
+        // stop player movement
         GetComponent<FirstPersonController>().enabled = false;
 
         // dying animation
         GetComponentInChildren<Animator>().enabled = true;
 
+        // disable crosshair and player hud
+        UIManager.Instance.crosshairCanvas.SetActive(false);
+        UIManager.Instance.playerHUDCanvas.SetActive(false);
+
+        // disable audio sources 
+        SoundManager.Instance.ShootingChannel.volume = 0f; // mutes shooting audio
+        SoundManager.Instance.ReloadingChannel.volume = 0f; // mutes reloading audio
+        SoundManager.Instance.dryFireSoundGlock18.volume = 0f; // mutes glock dry fire audio
+        SoundManager.Instance.dryFireSoundAK47.volume = 0f; // mutes ak dry fire audio
+
         // fade to black screen
         GetComponent<FadeToBlack>().StartFade();
 
         // display game over text
-        StartCoroutine(ShowGameOverUI());
+        StartCoroutine(ShowGameEndScreenUI());
     }
 
-    private IEnumerator ShowGameOverUI()
+    private IEnumerator ShowGameEndScreenUI()
     {
-        yield return new WaitForSeconds(1f);
-        UIManager.Instance.gameOverUI.SetActive(true);
+        yield return new WaitForSeconds(3f); // current screen fade time is 3 seconds
+        UIManager.Instance.gameEndScreenCanvas.SetActive(true);
+
+        int roundsSurvived = GlobalReferences.Instance.roundNumber - 1; // highest round reached, ex. reaching round 10 means you survived 9 rounds
+
+        if (roundsSurvived > SaveLoadManager.Instance.LoadHighestRound()) // only save rounds survived if it is higher
+        {
+            SaveLoadManager.Instance.SaveHighestRound(roundsSurvived);
+        }
     }
 
     private IEnumerator PlayerDamageScreenEffect()
