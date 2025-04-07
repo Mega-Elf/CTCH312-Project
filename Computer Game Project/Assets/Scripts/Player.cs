@@ -16,7 +16,7 @@ public class Player : MonoBehaviour
     {
         playerHealth -= damageTaken; // player takes damage
 
-        UIManager.Instance.playerHealthUI.text = $"{playerHealth}";
+        UIManager.Instance.playerHealthCountUI.text = $"{playerHealth}";
 
         if (playerHealth <= 0 && !isDead) // player takes lethal damage, and wasn't already dead
         {

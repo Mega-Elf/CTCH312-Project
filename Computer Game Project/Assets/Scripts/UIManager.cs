@@ -10,18 +10,10 @@ public class UIManager : MonoBehaviour
     [Header("Ammo")]
     public TextMeshProUGUI magazineAmmoUI;
     public TextMeshProUGUI totalAmmoUI;
-    public Image ammoTypeUI;
 
     [Header("Weapon")]
     public Image activeWeaponUI;
     public Image inactiveWeaponUI;
-
-    [Header("Throwables")]
-    public Image lethalUI;
-    public TextMeshProUGUI lethalCountUI;
-
-    public Image tacticalUI;
-    public TextMeshProUGUI tacticalCountUI;
 
     [Header("Player HUD")]
     public Sprite emptySlot;
@@ -34,7 +26,8 @@ public class UIManager : MonoBehaviour
     public int killCount = 0;
 
     public Player player;
-    public TextMeshProUGUI playerHealthUI;
+    public Image playerHealthUI;
+    public TextMeshProUGUI playerHealthCountUI;
 
     [Header("Other")]
     public GameObject crosshairCanvas;
@@ -56,7 +49,8 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        playerHealthUI.text = $"{player.playerHealth}";
+        playerHealthCountUI.text = $"{player.playerHealth}";
+        playerHealthUI.sprite = Resources.Load<Sprite>("Health_Symbol");
     }
 
     private void Update()
@@ -70,7 +64,6 @@ public class UIManager : MonoBehaviour
             totalAmmoUI.text = $"{WeaponManager.Instance.CheckAmmoRemaining(activeWeapon.currentWeaponModel)}";
 
             Weapon.WeaponModel model = activeWeapon.currentWeaponModel;
-            ammoTypeUI.sprite = GetAmmoSprite(model);
 
             activeWeaponUI.sprite = GetWeaponSprite(model);
 
@@ -84,7 +77,6 @@ public class UIManager : MonoBehaviour
             magazineAmmoUI.text = "";
             totalAmmoUI.text = "";
 
-            ammoTypeUI.sprite = emptySlot;
             activeWeaponUI.sprite = emptySlot;
             inactiveWeaponUI.sprite = emptySlot;
         }
@@ -117,21 +109,6 @@ public class UIManager : MonoBehaviour
 
             case Weapon.WeaponModel.AK47:
                 return Resources.Load<GameObject>("AK47_Weapon").GetComponent<SpriteRenderer>().sprite;
-
-            default:
-                return null;
-        }
-    }
-
-    private Sprite GetAmmoSprite(Weapon.WeaponModel model)
-    {
-        switch (model)
-        {
-            case Weapon.WeaponModel.Glock18:
-                return Resources.Load<GameObject>("Pistol_Ammo").GetComponent<SpriteRenderer>().sprite;
-
-            case Weapon.WeaponModel.AK47:
-                return Resources.Load<GameObject>("AR_Ammo").GetComponent<SpriteRenderer>().sprite;
 
             default:
                 return null;
