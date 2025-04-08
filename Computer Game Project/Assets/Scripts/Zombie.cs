@@ -7,7 +7,7 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Zombie : MonoBehaviour
 {
-    [SerializeField] private int zombieHealth = 50;
+    [SerializeField] private float zombieHealth = 50;
     public bool isDead;
     private Animator animator;
 
@@ -49,12 +49,22 @@ public class Zombie : MonoBehaviour
         }
     }
 
-    public void TakeDamage(int damageTaken)
+    public void TakeDamage(float damageTaken, GameObject bodyPartHit)
     {
         zombieHealth -= damageTaken; // zombie takes damage
 
         if (zombieHealth <= 0) // zombie dies
         {
+            if (bodyPartHit.gameObject.CompareTag("Zombie")) // bodyshot kill
+            {
+                UIManager.Instance.scoreCount += 100;
+            }
+
+            if (bodyPartHit.gameObject.CompareTag("ZombieHead")) // headshot kill
+            {
+                UIManager.Instance.scoreCount += 125;
+            }
+
             isDead = true;
             UIManager.Instance.killCount++; // increase kill count
 
@@ -85,6 +95,8 @@ public class Zombie : MonoBehaviour
         }
         else // zombie doesn't die
         {
+            UIManager.Instance.scoreCount += 10;
+
             animator.SetTrigger("DAMAGE");
 
             zombieChannel.Stop(); // stops current audio

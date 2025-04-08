@@ -184,7 +184,7 @@ MonoBehaviour:
   bulletsRemaining: 0
   bulletsMissing: 0
   isReloading: 0
-  spawnPosition: {x: 0.3, y: -0.25, z: 0.5}
+  spawnPosition: {x: 0.3, y: -0.25, z: 0.375}
   spawnRotation: {x: 0, y: 0, z: 0}
   currentWeaponModel: 1
   currentSelectFireMode: 2

@@ -12,6 +12,7 @@ TagManager:
   - Flesh
   - Zombie
   - ZombieHand
+  - ZombieHead
   layers:
   - Default
   - TransparentFX

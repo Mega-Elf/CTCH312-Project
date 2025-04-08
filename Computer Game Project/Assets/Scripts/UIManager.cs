@@ -29,6 +29,11 @@ public class UIManager : MonoBehaviour
     public Image playerHealthUI;
     public TextMeshProUGUI playerHealthCountUI;
 
+    public TextMeshProUGUI playerScoreUI;
+    public int scoreCount = 0;
+    public GameObject ammoBuyUI;
+    public TextMeshProUGUI weaponBuyUI;
+
     [Header("Other")]
     public GameObject crosshairCanvas;
     public GameObject playerHUDCanvas;
@@ -51,6 +56,8 @@ public class UIManager : MonoBehaviour
     {
         playerHealthCountUI.text = $"{player.playerHealth}";
         playerHealthUI.sprite = Resources.Load<Sprite>("Health_Symbol");
+
+        playerScoreUI.text = $"Score: {scoreCount}";
     }
 
     private void Update()
@@ -91,6 +98,12 @@ public class UIManager : MonoBehaviour
         if (roundCountUI.text != $"{currentRound}")
         {
             roundCountUI.text = $"{currentRound}";
+        }
+
+        // Update player score
+        if (playerScoreUI.text != $"Score: {scoreCount}")
+        {
+            playerScoreUI.text = $"Score: {scoreCount}";
         }
 
         // Update you survived x rounds

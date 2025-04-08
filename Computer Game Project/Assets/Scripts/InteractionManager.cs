@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class InteractionManager : MonoBehaviour
@@ -47,6 +48,18 @@ public class InteractionManager : MonoBehaviour
                     hoveredWeapon = parentOfObjectHit.gameObject.GetComponent<Weapon>();
                     hoveredWeapon.GetComponent<Outline>().enabled = true;
 
+                    Weapon.WeaponModel model = hoveredWeapon.currentWeaponModel;
+                    switch (model)
+                    {
+                        case Weapon.WeaponModel.Glock18:
+                            UIManager.Instance.weaponBuyUI.GetComponent<TextMeshProUGUI>().text = $"Glock 18\r\nPress F to Pick Up";
+                            break;
+                        case Weapon.WeaponModel.AK47:
+                            UIManager.Instance.weaponBuyUI.GetComponent<TextMeshProUGUI>().text = $"AK-47\r\nPress F to Pick Up";
+                            break;
+                    }
+                    UIManager.Instance.weaponBuyUI.gameObject.SetActive(true);
+
                     if (Input.GetKeyDown(KeyCode.F))
                     {
                         WeaponManager.Instance.PickUpWeapon(parentOfObjectHit.gameObject);
@@ -57,6 +70,7 @@ public class InteractionManager : MonoBehaviour
                     if (hoveredWeapon)
                     {
                         hoveredWeapon.GetComponent<Outline>().enabled = false;
+                        UIManager.Instance.weaponBuyUI.gameObject.SetActive(false);
                     }
                 }
 
@@ -68,11 +82,20 @@ public class InteractionManager : MonoBehaviour
 
                     hoveredAmmoCrate = parentOfObjectHit.gameObject.GetComponent<AmmoCrate>();
                     hoveredAmmoCrate.GetComponent<Outline>().enabled = true;
+                    UIManager.Instance.ammoBuyUI.SetActive(true);
 
                     if (Input.GetKeyDown(KeyCode.F))
                     {
-                        WeaponManager.Instance.PickUpAmmo(hoveredAmmoCrate);
-                        // Reduce player score? spend points for ammo
+                        if (UIManager.Instance.scoreCount >= 1000)
+                        {
+                            UIManager.Instance.scoreCount -= 1000;
+                            WeaponManager.Instance.PickUpAmmo(hoveredAmmoCrate);
+                            print("Ammo bought successfully");
+                        }
+                        else
+                        {
+                            print("Not enough points to buy ammo");
+                        }
                     }
                 }
                 else
@@ -80,6 +103,7 @@ public class InteractionManager : MonoBehaviour
                     if (hoveredAmmoCrate)
                     {
                         hoveredAmmoCrate.GetComponent<Outline>().enabled = false;
+                        UIManager.Instance.ammoBuyUI.SetActive(false);
                     }
                 }
             }
@@ -88,11 +112,13 @@ public class InteractionManager : MonoBehaviour
                 if (hoveredWeapon) // a weapon was hovered
                 {
                     hoveredWeapon.GetComponent<Outline>().enabled = false; // disable its outline
+                    UIManager.Instance.weaponBuyUI.gameObject.SetActive(false);
                 }
 
                 if (hoveredAmmoCrate) // a ammo crate was hovered
                 {
                     hoveredAmmoCrate.GetComponent<Outline>().enabled = false; // disable its outline
+                    UIManager.Instance.ammoBuyUI.SetActive(false);
                 }
             }
         }
