@@ -9,7 +9,6 @@ public class SpawnManager : MonoBehaviour
 {
     public static SpawnManager Instance { get; set; }
 
-    public int initialZombiesPerRound = 3;
     public int currentZombiesPerRound;
     public int maxZombiesOnMap = 20;
 
@@ -42,7 +41,7 @@ public class SpawnManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        currentZombiesPerRound = initialZombiesPerRound;
+        currentZombiesPerRound = Convert.ToInt16(Math.Floor(2.25 * UIManager.Instance.currentRound + 4));
 
         UIManager.Instance.currentRound++; // increase round from 0 to 1, start game
         GlobalReferences.Instance.roundNumber = UIManager.Instance.currentRound; // set highest round survived in global ref

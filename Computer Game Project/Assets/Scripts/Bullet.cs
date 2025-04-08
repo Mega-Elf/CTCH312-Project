@@ -86,7 +86,7 @@ public class Bullet : MonoBehaviour
 
             hole.transform.SetParent(objectHit.gameObject.transform);
         }
-        else
+        else if (objectHit.gameObject.CompareTag("Wall")) // stone
         {
             GameObject hole = Instantiate(
                 GlobalReferences.Instance.bulletImpactStoneEffect,
@@ -96,6 +96,7 @@ public class Bullet : MonoBehaviour
 
             hole.transform.SetParent(objectHit.gameObject.transform);
         }
+        // else dont make any effect
 
     }
 }

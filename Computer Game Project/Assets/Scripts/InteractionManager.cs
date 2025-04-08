@@ -12,6 +12,9 @@ public class InteractionManager : MonoBehaviour
     public float distanceFromObject;
     public float pickUpRange = 2.5f;
 
+    public GameObject questItem1;
+    public GameObject hoveredQuestItem = null;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -39,6 +42,18 @@ public class InteractionManager : MonoBehaviour
 
             if (distanceFromObject <= pickUpRange) // within range of object
             {
+                if (objectHitByRaycast == questItem1) // if player is looking at the compass, quest item 1
+                {
+                    hoveredQuestItem = objectHitByRaycast;
+                    objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        UIManager.Instance.currentQuestStep++; // go to next step
+                        UIManager.Instance.questGuideUI.text = $"Compass retrieved! Continue exploring the forest."; // update quest hint
+                        Destroy(objectHitByRaycast); // remove compass, looks like you picked it up
+                    }
+                }
+
                 // Weapon part hit
                 if (objectHitByRaycast.GetComponentInParent<Weapon>())
                 {
@@ -109,6 +124,11 @@ public class InteractionManager : MonoBehaviour
             }
             else // out of range of object
             {
+                if (hoveredQuestItem) // a quest item was hovered
+                {
+                    hoveredQuestItem.GetComponent<Outline>().enabled = false; // disable its outline
+                }
+
                 if (hoveredWeapon) // a weapon was hovered
                 {
                     hoveredWeapon.GetComponent<Outline>().enabled = false; // disable its outline

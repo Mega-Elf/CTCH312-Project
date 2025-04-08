@@ -40,6 +40,9 @@ public class UIManager : MonoBehaviour
     public GameObject gameEndScreenCanvas;
     public TextMeshProUGUI roundsSurvivedUI;
 
+    public TextMeshProUGUI questGuideUI;
+    public int currentQuestStep = 1;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
