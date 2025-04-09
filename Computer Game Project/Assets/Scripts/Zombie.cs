@@ -7,7 +7,7 @@ using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 public class Zombie : MonoBehaviour
 {
-    [SerializeField] private float zombieHealth = 50;
+    [SerializeField] public float zombieHealth = 50;
     public bool isDead;
     private Animator animator;
 

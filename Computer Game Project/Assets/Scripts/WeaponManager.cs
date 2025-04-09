@@ -13,8 +13,8 @@ public class WeaponManager : MonoBehaviour
     public GameObject activeWeaponSlot;
 
     [Header("Ammo")]
-    public int totalGlock18Ammo = 36;
-    public int totalAK47Ammo = 60;
+    public int totalGlock18Ammo = 18;
+    public int totalAK47Ammo = 30;
 
     // For disabling/re-enabling weapon colliders
     public BoxCollider[] weaponHitBoxes;

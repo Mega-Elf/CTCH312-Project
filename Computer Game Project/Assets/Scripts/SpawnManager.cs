@@ -29,6 +29,8 @@ public class SpawnManager : MonoBehaviour
     [Header("Zombie Boss")]
     public GameObject zombieBossSpawner;
     public GameObject zombieBossPrefab;
+    public bool bossSpawned = false;
+    public Zombie bossZombieScript;
 
     private void Awake()
     {
@@ -91,13 +93,21 @@ public class SpawnManager : MonoBehaviour
             inbetweenRoundsCounter = roundDelay;
         }
 
-        // player if on last quest step
-        if (UIManager.Instance.currentQuestStep == 4)
+        // if player on step 5 "Vanquish 'The Fallen' and escape", and boss hasn't spawmed yet
+        if (UIManager.Instance.currentQuestStep == 5 && bossSpawned == false)
         {
-            UIManager.Instance.currentQuestStep++; // move to final step
-            StartCoroutine(SpawnBoss()); // spawn final boss
+            bossSpawned = true;
+            SpawnBoss(); // spawn the boss
         }
 
+        // still on step 5, but has defeated the boss
+        if (UIManager.Instance.currentQuestStep == 5 && bossZombieScript.zombieHealth <= 0f)
+        {
+            UIManager.Instance.bossHealthBar.SetActive(false); // turn off boss health bar
+            UIManager.Instance.currentQuestStep++; // go to next step, no more steps this just ends quest
+            UIManager.Instance.scoreCount += 10000; // increase player score for killing the boss
+            UIManager.Instance.questGuideUI.text = $"You Win!\nNow see how long you can survive!"; // update quest hint
+        }
     }
 
     private IEnumerator RoundDelay()
@@ -169,17 +179,17 @@ public class SpawnManager : MonoBehaviour
         }
     }
 
-    private IEnumerator SpawnBoss()
+    private void SpawnBoss()
     {
-        GameObject spawner = zombieBossSpawner;
-        Vector3 spawnPosition = spawner.transform.position;
+        GameObject bossSpawner = zombieBossSpawner;
+        Vector3 bossSpawnPosition = bossSpawner.transform.position;
 
         // Instantiate the zombie boss
-        var zombieBoss = Instantiate(zombieBossPrefab, spawnPosition, Quaternion.identity);
+        var zombieBoss = Instantiate(zombieBossPrefab, bossSpawnPosition, Quaternion.identity);
 
-        // get zombie script
-        Zombie zombieScript = zombieBoss.GetComponent<Zombie>();
+        // get boss zombie script
+        bossZombieScript = zombieBoss.GetComponent<Zombie>();
 
-        yield return new WaitForSeconds(2f);
+        UIManager.Instance.bossHealthBar.SetActive(true); // turn on boss health bar
     }
 }

@@ -742,6 +742,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 9169898448951860300}
+  - {fileID: 5360439415729148544}
   m_Father: {fileID: 9095281928206708506}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &2697560781623298437
@@ -1197,6 +1198,73 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.14594887, y: 0.14986752, z: 0.12992786}
   m_Center: {x: -0.04898137, y: 0.013390548, z: 0.0000000016758909}
+--- !u!1 &2997759903811190513
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5360439415729148544}
+  - component: {fileID: 7180614621572450592}
+  - component: {fileID: 1813641705487821374}
+  m_Layer: 0
+  m_Name: ZombieFootRight
+  m_TagString: ZombieHand
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5360439415729148544
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997759903811190513}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 6391695095063431776}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7180614621572450592
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997759903811190513}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.27789062, y: 0.13373853, z: 0.11194495}
+  m_Center: {x: -0.0891554, y: -0.025871286, z: 0.0050902907}
+--- !u!114 &1813641705487821374
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2997759903811190513}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec0c9f2a68760949bc8c9b1c222782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &3407599842230078483
 GameObject:
   m_ObjectHideFlags: 0
@@ -1554,6 +1622,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 6017051798716628455}
+  - {fileID: 4331016873442560730}
   m_Father: {fileID: 2290172408437079601}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!65 &8255914031556884164
@@ -1715,8 +1784,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.20680739, y: 0.08443332, z: 0.14480163}
-  m_Center: {x: -0.114145726, y: -0.01199664, z: 0.010712094}
+  m_Size: {x: 0.49211937, y: 0.08443332, z: 0.42848268}
+  m_Center: {x: -0.25680086, y: -0.011995568, z: 0.01071271}
 --- !u!114 &3276581225014740840
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2054,12 +2123,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 783631f6ca72fe5408d9e11e4b71e847, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  zombieHealth: 500
+  zombieHealth: 2000
   isDead: 0
   player: {fileID: 0}
   zombieHandLeft: {fileID: 3276581225014740840}
   zombieHandRight: {fileID: 8484157737689434070}
-  zombieDamage: 25
+  zombieDamage: 30
   zombieChannel: {fileID: -1296106227929362871}
   damageSoundClips:
   - {fileID: 8300000, guid: ce8d83551e37ced4c86537fc46ba2e50, type: 3}
@@ -2520,6 +2589,73 @@ Transform:
   m_Children: []
   m_Father: {fileID: 6172569387176464278}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &5707458132524259166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4331016873442560730}
+  - component: {fileID: 8535845703498641195}
+  - component: {fileID: 7463259627614608071}
+  m_Layer: 0
+  m_Name: ZombieFootLeft
+  m_TagString: ZombieHead
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4331016873442560730
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707458132524259166}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 5044134472858179604}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &8535845703498641195
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707458132524259166}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.27805257, y: 0.13356349, z: 0.11020254}
+  m_Center: {x: -0.08912719, y: -0.02601141, z: -0.005289264}
+--- !u!114 &7463259627614608071
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5707458132524259166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec0c9f2a68760949bc8c9b1c222782f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
 --- !u!1 &5819485129481763963
 GameObject:
   m_ObjectHideFlags: 0
@@ -3310,8 +3446,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.20680742, y: 0.082563736, z: 0.1518311}
-  m_Center: {x: -0.114146225, y: -0.011561654, z: -0.016606234}
+  m_Size: {x: 0.4964254, y: 0.082563736, z: 0.42973995}
+  m_Center: {x: -0.2589571, y: -0.011563665, z: -0.016606051}
 --- !u!114 &8484157737689434070
 MonoBehaviour:
   m_ObjectHideFlags: 0

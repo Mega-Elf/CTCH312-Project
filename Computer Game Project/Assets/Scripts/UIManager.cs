@@ -44,6 +44,7 @@ public class UIManager : MonoBehaviour
     public int currentQuestStep = 1;
     public TextMeshProUGUI questPickUpUI;
     public TextMeshProUGUI questInteractUI;
+    public GameObject bossHealthBar;
 
     private void Awake()
     {
@@ -109,6 +110,20 @@ public class UIManager : MonoBehaviour
         if (playerScoreUI.text != $"Score: {scoreCount}")
         {
             playerScoreUI.text = $"Score: {scoreCount}";
+        }
+
+        // If the boss has been spawned in and boss health bar slider is not set to the current health of the boss
+        if (SpawnManager.Instance.bossSpawned == true && bossHealthBar.GetComponent<Slider>().value != SpawnManager.Instance.bossZombieScript.zombieHealth)
+        {
+            if (SpawnManager.Instance.bossZombieScript.zombieHealth <= 0) // set to zero if at or below 0
+            {
+                bossHealthBar.GetComponent<Slider>().value = 0;
+            }
+            else
+            {
+                bossHealthBar.GetComponent<Slider>().value = SpawnManager.Instance.bossZombieScript.zombieHealth; // update boss health bar
+            }
+            
         }
 
         // Update you survived x rounds

@@ -12,9 +12,9 @@ public class InteractionManager : MonoBehaviour
     public float distanceFromObject;
     public float pickUpRange = 2.5f;
 
-    public GameObject questItem1;
-    public GameObject questItem2;
-    public bool questItem2Activated = false;
+    public GameObject questItemStep1;
+    public GameObject questItemStep3;
+    public bool questItemStep3Activated = false;
     public GameObject hoveredQuestItem = null;
 
     private void Awake()
@@ -45,7 +45,7 @@ public class InteractionManager : MonoBehaviour
             if (distanceFromObject <= pickUpRange) // within range of object
             {
                 // if player is on step 1, and looking at quest item 1
-                if (UIManager.Instance.currentQuestStep == 1 && objectHitByRaycast == questItem1)
+                if (UIManager.Instance.currentQuestStep == 1 && objectHitByRaycast == questItemStep1)
                 {
                     hoveredQuestItem = objectHitByRaycast;
                     objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
@@ -60,8 +60,8 @@ public class InteractionManager : MonoBehaviour
                     }
                 }
 
-                // if on step 2, looking at step 2 item, not already activated
-                if (UIManager.Instance.currentQuestStep == 2 && objectHitByRaycast == questItem2 && questItem2Activated == false)
+                // if on step 3, looking at step 3 item, not already activated
+                if (UIManager.Instance.currentQuestStep == 3 && objectHitByRaycast == questItemStep3 && questItemStep3Activated == false)
                 {
                     hoveredQuestItem = objectHitByRaycast;
                     objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
@@ -69,24 +69,11 @@ public class InteractionManager : MonoBehaviour
 
                     if (Input.GetKeyDown(KeyCode.F))
                     {
-                        questItem2Activated = true; // player can't interacte more than once
-                        UIManager.Instance.currentQuestStep++; // go to next step, step 3
-                        UIManager.Instance.questGuideUI.text = $"Code entered successfully! Approach the lake..."; // update quest hint
+                        questItemStep3Activated = true; // player can't interacte more than once
+                        UIManager.Instance.currentQuestStep++; // go to next step, step 4
+                        UIManager.Instance.questGuideUI.text = $"S.O.S. sent out! Approach the lake..."; // update quest hint
                         UIManager.Instance.questInteractUI.gameObject.SetActive(false); // hide prompt to interact
                         objectHitByRaycast.GetComponent<Outline>().enabled = false; // disable highlight
-                    }
-                }
-
-                // if on step 2, looking at step 2 item, not already activated
-                if (UIManager.Instance.currentQuestStep == 2 && objectHitByRaycast == questItem2 && questItem2Activated == false)
-                {
-                    hoveredQuestItem = objectHitByRaycast;
-                    objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
-                    if (Input.GetKeyDown(KeyCode.F))
-                    {
-                        questItem2Activated = true; // player can't interacte more than once
-                        UIManager.Instance.currentQuestStep++; // go to next step
-                        UIManager.Instance.questGuideUI.text = $"Code entered successfully! Approach the lake..."; // update quest hint
                     }
                 }
 
