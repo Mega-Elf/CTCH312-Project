@@ -2,6 +2,8 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public float bulletDamage;
+
     private void OnCollisionEnter(Collision objectHit)
     {
         if (objectHit.gameObject.CompareTag("Target"))
@@ -20,6 +22,22 @@ public class Bullet : MonoBehaviour
         {
             print("hit something other than target or wall");
             CreateBulletImpactEffect(objectHit);
+            Destroy(gameObject);
+        }
+
+        if (objectHit.gameObject.CompareTag("Zombie"))
+        {
+            print("hit " + objectHit.gameObject.name + " for " + bulletDamage + " damage.");
+            CreateBulletImpactEffect(objectHit);
+            objectHit.gameObject.GetComponentInParent<Zombie>().TakeDamage(bulletDamage, objectHit.gameObject);
+            Destroy(gameObject);
+        }
+
+        if (objectHit.gameObject.CompareTag("ZombieHead"))
+        {
+            print("hit " + objectHit.gameObject.name + " in the head for " + bulletDamage * 1.5f + " damage.");
+            CreateBulletImpactEffect(objectHit);
+            objectHit.gameObject.GetComponentInParent<Zombie>().TakeDamage(bulletDamage * 1.5f, objectHit.gameObject);
             Destroy(gameObject);
         }
     }
@@ -58,7 +76,7 @@ public class Bullet : MonoBehaviour
 
             hole.transform.SetParent(objectHit.gameObject.transform);
         }
-        else if (objectHit.gameObject.CompareTag("Flesh"))
+        else if (objectHit.gameObject.CompareTag("Zombie") || objectHit.gameObject.CompareTag("ZombieHead")) // zombie headshot or bodyshot
         {
             GameObject hole = Instantiate(
                 GlobalReferences.Instance.bulletImpactFleshEffect,
@@ -68,7 +86,7 @@ public class Bullet : MonoBehaviour
 
             hole.transform.SetParent(objectHit.gameObject.transform);
         }
-        else
+        else if (objectHit.gameObject.CompareTag("Wall")) // stone
         {
             GameObject hole = Instantiate(
                 GlobalReferences.Instance.bulletImpactStoneEffect,
@@ -78,6 +96,7 @@ public class Bullet : MonoBehaviour
 
             hole.transform.SetParent(objectHit.gameObject.transform);
         }
+        // else dont make any effect
 
     }
 }

@@ -5,6 +5,7 @@ public class SoundManager : MonoBehaviour
 {
     public static SoundManager Instance { get; set; }
 
+    [Header("Sound Method 1")]
     public AudioSource ShootingChannel;
     public AudioSource ReloadingChannel;
     
@@ -17,6 +18,15 @@ public class SoundManager : MonoBehaviour
     public AudioClip AK47Shot;
     public AudioClip AK47Reload;
     public AudioSource dryFireSoundAK47;
+
+    // Player sounds
+    public AudioClip playerDamaged;
+    public AudioClip playerDeath;
+    public AudioClip gameOverMusic;
+    public AudioSource PlayerChannel;
+
+    [Header("Sound Method 2")]
+    [SerializeField] private AudioSource soundFXObject;
 
     private void Awake()
     {
@@ -67,5 +77,50 @@ public class SoundManager : MonoBehaviour
                 dryFireSoundAK47.Play();
                 break;
         }
+    }
+
+    public void PlaySoundFXClip(AudioClip audioClip, Transform spawnTransform, float volume)
+    {
+        // spawn in gameObject
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+
+        // assign the audio clip
+        audioSource.clip = audioClip;
+
+        // assign the volume
+        audioSource.volume = volume;
+
+        // play the sound
+        audioSource.Play();
+
+        // get the length of the sound fx clip
+        float clipLength = audioSource.clip.length;
+
+        // destroy the clip after it is done playing
+        Destroy(audioSource.gameObject, clipLength);
+    }
+
+    public void PlayRandomSoundFXClip(AudioClip[] audioClip, Transform spawnTransform, float volume)
+    {
+        // assign a random index
+        int rand = Random.Range(0, audioClip.Length);
+
+        // spawn in gameObject
+        AudioSource audioSource = Instantiate(soundFXObject, spawnTransform.position, Quaternion.identity);
+
+        // assign the audio clip
+        audioSource.clip = audioClip[rand];
+
+        // assign the volume
+        audioSource.volume = volume;
+
+        // play the sound
+        audioSource.Play();
+
+        // get the length of the sound fx clip
+        float clipLength = audioSource.clip.length;
+
+        // destroy the clip after it is done playing
+        Destroy(audioSource.gameObject, clipLength);
     }
 }

@@ -10,6 +10,8 @@ public class GlobalReferences : MonoBehaviour
     public GameObject bulletImpactSandEffect;  // Sand
     public GameObject bulletImpactFleshEffect; // Flesh
 
+    public int roundNumber;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)

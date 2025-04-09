@@ -10,6 +10,10 @@ TagManager:
   - Wood
   - Sand
   - Flesh
+  - Zombie
+  - ZombieHand
+  - ZombieHead
+  - QuestStep3Trigger
   layers:
   - Default
   - TransparentFX
@@ -18,7 +22,7 @@ TagManager:
   - Water
   - UI
   - Terrain
-  - 
+  - WeaponRender
   - 
   - 
   - 
