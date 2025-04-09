@@ -13,6 +13,8 @@ public class InteractionManager : MonoBehaviour
     public float pickUpRange = 2.5f;
 
     public GameObject questItem1;
+    public GameObject questItem2;
+    public bool questItem2Activated = false;
     public GameObject hoveredQuestItem = null;
 
     private void Awake()
@@ -42,15 +44,49 @@ public class InteractionManager : MonoBehaviour
 
             if (distanceFromObject <= pickUpRange) // within range of object
             {
-                if (objectHitByRaycast == questItem1) // if player is looking at the compass, quest item 1
+                // if player is on step 1, and looking at quest item 1
+                if (UIManager.Instance.currentQuestStep == 1 && objectHitByRaycast == questItem1)
+                {
+                    hoveredQuestItem = objectHitByRaycast;
+                    objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
+                    UIManager.Instance.questPickUpUI.gameObject.SetActive(true); // display prompt to pick up
+
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        UIManager.Instance.currentQuestStep++; // go to next step, step 2
+                        UIManager.Instance.questGuideUI.text = $"Compass retrieved! Continue exploring the forest."; // update quest hint
+                        Destroy(objectHitByRaycast); // remove compass, looks like you picked it up
+                        UIManager.Instance.questPickUpUI.gameObject.SetActive(false); // hide pick up prompt
+                    }
+                }
+
+                // if on step 2, looking at step 2 item, not already activated
+                if (UIManager.Instance.currentQuestStep == 2 && objectHitByRaycast == questItem2 && questItem2Activated == false)
+                {
+                    hoveredQuestItem = objectHitByRaycast;
+                    objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
+                    UIManager.Instance.questInteractUI.gameObject.SetActive(true); // display prompt to interact
+
+                    if (Input.GetKeyDown(KeyCode.F))
+                    {
+                        questItem2Activated = true; // player can't interacte more than once
+                        UIManager.Instance.currentQuestStep++; // go to next step, step 3
+                        UIManager.Instance.questGuideUI.text = $"Code entered successfully! Approach the lake..."; // update quest hint
+                        UIManager.Instance.questInteractUI.gameObject.SetActive(false); // hide prompt to interact
+                        objectHitByRaycast.GetComponent<Outline>().enabled = false; // disable highlight
+                    }
+                }
+
+                // if on step 2, looking at step 2 item, not already activated
+                if (UIManager.Instance.currentQuestStep == 2 && objectHitByRaycast == questItem2 && questItem2Activated == false)
                 {
                     hoveredQuestItem = objectHitByRaycast;
                     objectHitByRaycast.GetComponent<Outline>().enabled = true; // highlight it
                     if (Input.GetKeyDown(KeyCode.F))
                     {
+                        questItem2Activated = true; // player can't interacte more than once
                         UIManager.Instance.currentQuestStep++; // go to next step
-                        UIManager.Instance.questGuideUI.text = $"Compass retrieved! Continue exploring the forest."; // update quest hint
-                        Destroy(objectHitByRaycast); // remove compass, looks like you picked it up
+                        UIManager.Instance.questGuideUI.text = $"Code entered successfully! Approach the lake..."; // update quest hint
                     }
                 }
 
@@ -67,13 +103,13 @@ public class InteractionManager : MonoBehaviour
                     switch (model)
                     {
                         case Weapon.WeaponModel.Glock18:
-                            UIManager.Instance.weaponBuyUI.GetComponent<TextMeshProUGUI>().text = $"Glock 18\r\nPress F to Pick Up";
+                            UIManager.Instance.weaponPickUpUI.GetComponent<TextMeshProUGUI>().text = $"Glock 18\r\nPress F to Pick Up";
                             break;
                         case Weapon.WeaponModel.AK47:
-                            UIManager.Instance.weaponBuyUI.GetComponent<TextMeshProUGUI>().text = $"AK-47\r\nPress F to Pick Up";
+                            UIManager.Instance.weaponPickUpUI.GetComponent<TextMeshProUGUI>().text = $"AK-47\r\nPress F to Pick Up";
                             break;
                     }
-                    UIManager.Instance.weaponBuyUI.gameObject.SetActive(true);
+                    UIManager.Instance.weaponPickUpUI.gameObject.SetActive(true);
 
                     if (Input.GetKeyDown(KeyCode.F))
                     {
@@ -85,7 +121,7 @@ public class InteractionManager : MonoBehaviour
                     if (hoveredWeapon)
                     {
                         hoveredWeapon.GetComponent<Outline>().enabled = false;
-                        UIManager.Instance.weaponBuyUI.gameObject.SetActive(false);
+                        UIManager.Instance.weaponPickUpUI.gameObject.SetActive(false);
                     }
                 }
 
@@ -127,12 +163,14 @@ public class InteractionManager : MonoBehaviour
                 if (hoveredQuestItem) // a quest item was hovered
                 {
                     hoveredQuestItem.GetComponent<Outline>().enabled = false; // disable its outline
+                    UIManager.Instance.questPickUpUI.gameObject.SetActive(false); // hide prompt to pick up
+                    UIManager.Instance.questInteractUI.gameObject.SetActive(false); // hide prompt to interact
                 }
 
                 if (hoveredWeapon) // a weapon was hovered
                 {
                     hoveredWeapon.GetComponent<Outline>().enabled = false; // disable its outline
-                    UIManager.Instance.weaponBuyUI.gameObject.SetActive(false);
+                    UIManager.Instance.weaponPickUpUI.gameObject.SetActive(false);
                 }
 
                 if (hoveredAmmoCrate) // a ammo crate was hovered

@@ -13,7 +13,7 @@ TagManager:
   - Zombie
   - ZombieHand
   - ZombieHead
-  - QuestItem1
+  - QuestStep3Trigger
   layers:
   - Default
   - TransparentFX

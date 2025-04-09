@@ -32,7 +32,7 @@ public class UIManager : MonoBehaviour
     public TextMeshProUGUI playerScoreUI;
     public int scoreCount = 0;
     public GameObject ammoBuyUI;
-    public TextMeshProUGUI weaponBuyUI;
+    public TextMeshProUGUI weaponPickUpUI;
 
     [Header("Other")]
     public GameObject crosshairCanvas;
@@ -42,6 +42,8 @@ public class UIManager : MonoBehaviour
 
     public TextMeshProUGUI questGuideUI;
     public int currentQuestStep = 1;
+    public TextMeshProUGUI questPickUpUI;
+    public TextMeshProUGUI questInteractUI;
 
     private void Awake()
     {

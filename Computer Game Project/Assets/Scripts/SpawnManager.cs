@@ -26,6 +26,10 @@ public class SpawnManager : MonoBehaviour
     public Transform player;
     public bool spawnSuccessful;
 
+    [Header("Zombie Boss")]
+    public GameObject zombieBossSpawner;
+    public GameObject zombieBossPrefab;
+
     private void Awake()
     {
         if (Instance != null && Instance != this)
@@ -86,6 +90,14 @@ public class SpawnManager : MonoBehaviour
         {
             inbetweenRoundsCounter = roundDelay;
         }
+
+        // player if on last quest step
+        if (UIManager.Instance.currentQuestStep == 4)
+        {
+            UIManager.Instance.currentQuestStep++; // move to final step
+            StartCoroutine(SpawnBoss()); // spawn final boss
+        }
+
     }
 
     private IEnumerator RoundDelay()
@@ -155,5 +167,19 @@ public class SpawnManager : MonoBehaviour
 
             spawnSuccessful = false; // reset spawn bool
         }
+    }
+
+    private IEnumerator SpawnBoss()
+    {
+        GameObject spawner = zombieBossSpawner;
+        Vector3 spawnPosition = spawner.transform.position;
+
+        // Instantiate the zombie boss
+        var zombieBoss = Instantiate(zombieBossPrefab, spawnPosition, Quaternion.identity);
+
+        // get zombie script
+        Zombie zombieScript = zombieBoss.GetComponent<Zombie>();
+
+        yield return new WaitForSeconds(2f);
     }
 }
